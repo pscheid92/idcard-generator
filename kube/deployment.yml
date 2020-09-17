@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idcardgenerator
+  labels:
+    app: idcardgenerator
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: idcardgenerator
+      labels:
+        app: idcardgenerator
+    spec:
+      containers:
+        - name: idcardgenerator
+          image: registry.gitlab.com/pscheid92/idcardgenerator:latest
+  selector:
+    matchLabels:
+      app: idcardgenerator

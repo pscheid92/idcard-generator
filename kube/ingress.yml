@@ -1,17 +1,17 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: idcardgenerator
   annotations:
-    cert-manager.io/issuer: "letsencrypt"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+    cert-manager.io/cluster-issuer: letsencrypt
 
 spec:
   tls:
     - hosts:
         - gphrase.de
-      secretName: letsencrypt-tls
-
+      secretName: gphrase-cert-secret
   rules:
     - host: gphrase.de
       http:
@@ -19,7 +19,5 @@ spec:
           - path: /perso
             pathType: Prefix
             backend:
-              service:
-                name: idcardgenerator
-                port:
-                  number: 8080
+              serviceName: idcardgenerator
+              servicePort: 8080

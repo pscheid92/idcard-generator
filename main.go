@@ -9,6 +9,10 @@ import (
 
 var templates = template.Must(template.ParseGlob("templates/*"))
 
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
+
 func process(w http.ResponseWriter, r *http.Request) {
 	model := models.NewViewModel()
 
@@ -40,6 +44,7 @@ func process(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	http.HandleFunc("/health", healthCheck)
 	http.HandleFunc("/", process)
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {

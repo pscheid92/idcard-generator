@@ -5,7 +5,13 @@ metadata:
   labels:
     app: idcardgenerator
 spec:
+  selector:
+    matchLabels:
+      app: idcardgenerator
+
   replicas: 2
+  minReadySeconds: 10
+
   template:
     metadata:
       name: idcardgenerator
@@ -15,6 +21,9 @@ spec:
       containers:
         - name: idcardgenerator
           image: registry.gitlab.com/pscheid92/idcardgenerator:latest
-  selector:
-    matchLabels:
-      app: idcardgenerator
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

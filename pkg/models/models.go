@@ -88,10 +88,9 @@ func (vm *ViewModel) CalculatePassport() {
 	// overall checksum
 	checksum := calculateChecksumOfBlock(cardNumberBlock+bdBlock+expBlock, vm.Manipulation)
 
-	result := make([]string, 3)
-	result[0] = cardNumberBlock + "D"
-	result[1] = bdBlock + "F" + expBlock
-	result[2] = checksum
+	// build result in single line
+	result := make([]string, 1)
+	result[0] = cardNumberBlock + "D<<" + bdBlock + "F" + expBlock + "<<<<<<<<<<<<<<<" + checksum
 	vm.Parts = result
 }
 

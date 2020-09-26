@@ -2,11 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Perso Generator</title>
-
-    <style>
-
-    </style>
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -21,7 +18,7 @@
     <form action="/perso" method="post" class="text-center">
 
         <div class="row">
-            <div class="col-md">
+            <div class="col-sm">
                 <label for="cardtype">Ausweis-Typ</label>
                 <select class="form-control" id="cardtype" name="cardtype" required>
                     {{ range .CardOptions }}
@@ -30,12 +27,12 @@
                 </select>
             </div>
 
-            <div class="col-md">
+            <div class="col-sm">
                 <label for="birthday">Geburtsdatum</label>
                 <input type="date" id="birthday" name="birthday" class="form-control" value="{{ .Birthday }}" required>
             </div>
 
-            <div class="col-md">
+            <div class="col-sm">
                 <label for="expiration">Ablaufdatum</label>
                 <input type="date" id="expiration" name="expiration" class="form-control" value="{{ .Expiration }}"
                        required>
@@ -43,7 +40,7 @@
         </div>
 
         <div class="row m-3">
-            <div class="form-check col">
+            <div class="form-check col-sm">
                 <input
                         class="form-check-input"
                         type="checkbox"
@@ -66,7 +63,7 @@
         <h3 class="mb-5 text-center font-weight-bold">Ergebnis</h3>
 
         {{ range $i, $value := .Parts }}
-            <div class="col-md my-3">
+            <div class="col-sm my-3">
                 <div class="input-group">
                     <input id="part{{ $i }}" class="form-control" type="text" readonly value="{{ $value }}">
                     <div class="input-group-append">

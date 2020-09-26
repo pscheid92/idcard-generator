@@ -6,11 +6,9 @@ run:
 build:
 	GOOS=linux go build .
 	docker build  . \
-		-t registry.gitlab.com/pscheid92/idcardgenerator:$(NOW) \
-		-t registry.gitlab.com/pscheid92/idcardgenerator:latest
+		-t registry.gitlab.com/pscheid92/idcardgenerator:$(NOW)
 
 publish: build
 	docker push registry.gitlab.com/pscheid92/idcardgenerator:$(NOW)
-	docker push registry.gitlab.com/pscheid92/idcardgenerator:latest
 
 

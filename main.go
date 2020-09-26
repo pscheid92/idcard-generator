@@ -16,6 +16,11 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 func process(w http.ResponseWriter, r *http.Request) {
 	model := models.NewViewModel()
 
+	// use x-forwarded-prefix header if set
+	if pathPrefix := r.Header.Get("X-Forwarded-Prefix"); pathPrefix != "" {
+		model.PathPrefix = pathPrefix
+	}
+
 	switch r.Method {
 	case "GET":
 		model.CardOptions[0].Selected = true

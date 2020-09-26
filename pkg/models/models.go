@@ -12,6 +12,7 @@ type CardOption struct {
 }
 
 type ViewModel struct {
+	PathPrefix   string
 	Birthday     string
 	Expiration   string
 	Manipulation bool
@@ -21,6 +22,9 @@ type ViewModel struct {
 
 func NewViewModel() ViewModel {
 	model := ViewModel{}
+
+	// prepare routing prefix
+	model.PathPrefix = "/"
 
 	// prepare birthday and expiration
 	model.Birthday = "1980-01-01"

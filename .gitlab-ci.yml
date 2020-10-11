@@ -13,7 +13,9 @@ build:
   artifacts:
     paths:
       - idcardgenerator
-    expires_in: 1 week
+    expire_in: 1 week
+  only:
+    - master
 
 publish:
   stage: publish
@@ -24,3 +26,5 @@ publish:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+  only:
+    - master

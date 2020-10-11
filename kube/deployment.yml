@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: idcardgenerator
-          image: registry.gitlab.com/pscheid92/idcardgenerator:20200926-143802
+          image: registry.gitlab.com/pscheid92/idcardgenerator:<VERSION>
           livenessProbe:
             httpGet:
               path: /health

@@ -1,9 +1,11 @@
 stages:
   - build
   - publish
+  - deploy
 
 variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  VERSION: $CI_COMMIT_SHORT_SHA
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$VERSION
 
 build:
   stage: build
@@ -28,3 +30,18 @@ publish:
     - docker push $IMAGE_TAG
   only:
     - master
+
+deploy:
+  stage: deploy
+  script:
+    - sed -i "s/<VERSION>/$VERSION/g" kube/deployment.yml
+    - kubectl apply -f kube/deployment.yml
+    - kubectl apply -f kube/service.yml
+    - kubectl apply -f kube/ingress.yml
+  environment:
+    name: production
+    url: https://gphrase.de/perso
+  only:
+    - master
+  when:
+    manual

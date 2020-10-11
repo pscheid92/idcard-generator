@@ -34,7 +34,7 @@ publish:
 deploy:
   stage: deploy
   script:
-    - sed -i "s/<VERSION>/$VERSION/g" kube/deployment.yml
+    - sed -i "s/__IMAGE_VERSION__/$VERSION/g" kube/deployment.yml
     - kubectl apply -f kube/deployment.yml
     - kubectl apply -f kube/service.yml
     - kubectl apply -f kube/ingress.yml

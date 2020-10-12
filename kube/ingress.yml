@@ -4,10 +4,12 @@ metadata:
   name: idcardgenerator
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/ssl-redirect: "true"
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/custom-request-headers: "X-Forwarded-Prefix: /perso"
-    cert-manager.io/cluster-issuer: letsencrypt
+    traefik.ingress.kubernetes.io/frontend-entry-points: "http,https"
+    traefik.ingress.kubernetes.io/redirect-entry-point: "https"
+    traefik.ingress.kubernetes.io/redirect-permanent: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 spec:
   tls:

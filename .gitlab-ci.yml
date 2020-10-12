@@ -44,5 +44,3 @@ deploy:
     url: https://gphrase.de/perso
   only:
     - master
-  when:
-    manual

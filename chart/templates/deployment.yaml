@@ -8,9 +8,9 @@ spec:
   selector:
     matchLabels:
       app: idcardgenerator
-
-  replicas: 2
-
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
   template:
     metadata:
       name: idcardgenerator
@@ -21,12 +21,7 @@ spec:
         - name: idcardgenerator
           image: "registry.gitlab.com/pscheid92/idcardgenerator:{{ required "Set valid .Values.imageVersion entry!" .Values.imageVersion }}"
           resources:
-            limits:
-              cpu: 100m
-              memory: 25Mi
-            requests:
-              cpu: 5m
-              memory: 5Mi
+            {{- toYaml .Values.resources | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health

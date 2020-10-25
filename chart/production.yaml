@@ -1,0 +1,11 @@
+
+autoscaling:
+  enabled: true
+
+resources:
+  requests:
+    cpu: 5m
+    memory: 25Mi
+  limits:
+    cpu: 100m
+    memory: 50Mi

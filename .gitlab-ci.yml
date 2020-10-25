@@ -35,7 +35,11 @@ deploy:
   stage: deploy
   image: dtzar/helm-kubectl:3.3.4
   script:
-    - helm upgrade -i --set imageVersion=$VERSION idcard-processor chart
+    - helm upgrade
+        --install
+        --set imageVersion=$VERSION
+        --values ./chart/production.yaml
+        idcard-processor ./chart
   environment:
     name: production
     url: https://gphrase.de/perso

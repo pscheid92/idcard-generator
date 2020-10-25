@@ -20,6 +20,13 @@ spec:
       containers:
         - name: idcardgenerator
           image: "registry.gitlab.com/pscheid92/idcardgenerator:{{ required "Set valid .Values.imageVersion entry!" .Values.imageVersion }}"
+          resources:
+            limits:
+              cpu: 100m
+              memory: 25Mi
+            requests:
+              cpu: 5m
+              memory: 5Mi
           livenessProbe:
             httpGet:
               path: /health

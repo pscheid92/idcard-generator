@@ -35,8 +35,7 @@ deploy:
   stage: deploy
   image: dtzar/helm-kubectl:3.3.4
   script:
-    - sed -i "s/__IMAGE_VERSION__/$VERSION/g" kube/deployment.yml
-    - kubectl apply -f kube
+    - helm install --set imageVersion=$VERSION idcard-processor chart
   environment:
     name: production
     url: https://gphrase.de/perso

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idcardgenerator
+  labels:
+    app: idcardgenerator
+spec:
+  selector:
+    matchLabels:
+      app: idcardgenerator
+
+  replicas: 2
+
+  template:
+    metadata:
+      name: idcardgenerator
+      labels:
+        app: idcardgenerator
+    spec:
+      containers:
+        - name: idcardgenerator
+          image: "registry.gitlab.com/pscheid92/idcardgenerator:{{ required "Set valid .Values.imageVersion entry!" .Values.imageVersion }}"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

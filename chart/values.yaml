@@ -4,9 +4,12 @@
 
 imageVersion: latest
 
-replicas: 2
+replicas: 1
 
 resources: {}
 
 autoscaling:
   enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCpuUtilization: 80

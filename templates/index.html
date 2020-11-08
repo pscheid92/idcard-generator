@@ -21,9 +21,9 @@
             <div class="col-sm">
                 <label for="cardtype">Ausweis-Typ</label>
                 <select class="form-control" id="cardtype" name="cardtype" required>
-                    {{ range .CardOptions }}
+                    {{- range .CardOptions }}
                         <option value="{{ .Value }}" {{ if .Selected }} selected {{ end }}>{{ .Name }}</option>
-                    {{ end }}
+                    {{- end }}
                 </select>
             </div>
 
@@ -47,7 +47,7 @@
                         value="manipulation"
                         id="manipulation"
                         name="manipulation"
-                        {{ if .Manipulation }} checked {{ end }}>
+                        {{ if .Manipulation -}} checked {{- end }}>
                 <label class="form-check-label" for="manipulation">Ungültige Prüfsumme generieren</label>
             </div>
         </div>

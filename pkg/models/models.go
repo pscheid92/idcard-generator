@@ -20,6 +20,12 @@ type ViewModel struct {
 	Parts        []string
 }
 
+const (
+	NewId = "newid"
+	OldId = "oldid"
+	Passport = "passport"
+)
+
 func NewViewModel() ViewModel {
 	model := ViewModel{}
 

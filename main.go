@@ -1,11 +1,12 @@
 package main
 
 import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
 	"github.com/pscheid92/idcard-generator/internal/middleware"
 	"github.com/pscheid92/idcard-generator/internal/models"
 	"github.com/pscheid92/idcard-generator/internal/renderer"
-	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 func main() {
@@ -33,6 +34,7 @@ func getMainPage(c echo.Context) error {
 	model := models.NewViewModel()
 	model.CardOptions[0].Selected = true
 	model.PathPrefix = c.Get("PathPrefix").(string)
+
 	return c.Render(http.StatusOK, "index.html", model)
 }
 
@@ -49,12 +51,12 @@ func postMainPage(c echo.Context) error {
 	model.Manipulation = form.Manipulation == "manipulation"
 
 	switch form.CardType {
-	case models.NewId:
+	case models.NewID:
 		model.CardOptions[0].Selected = true
-		model.CalculateNewId()
-	case models.OldId:
+		model.CalculateNewID()
+	case models.OldID:
 		model.CardOptions[1].Selected = true
-		model.CalculateOldId()
+		model.CalculateOldID()
 	case models.Passport:
 		model.CardOptions[2].Selected = true
 		model.CalculatePassport()

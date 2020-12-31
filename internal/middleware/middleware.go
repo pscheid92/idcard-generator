@@ -8,7 +8,9 @@ func ForwardedPrefixMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		if pathPrefix == "" {
 			pathPrefix = "/"
 		}
+
 		c.Set("PathPrefix", pathPrefix)
+
 		return next(c)
 	}
 }

@@ -1,9 +1,10 @@
 package renderer
 
 import (
-	"github.com/labstack/echo/v4"
 	"html/template"
 	"io"
+
+	"github.com/labstack/echo/v4"
 )
 
 type TemplateRenderer struct {
@@ -15,6 +16,7 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 }
 
 func NewTemplateRenderer(glob string) *TemplateRenderer {
-	templates := template.Must(template.ParseGlob(glob))
-	return &TemplateRenderer{templates}
+	return &TemplateRenderer{
+		template.Must(template.ParseGlob(glob)),
+	}
 }

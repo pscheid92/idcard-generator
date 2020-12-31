@@ -21,8 +21,8 @@ type ViewModel struct {
 }
 
 const (
-	NewId = "newid"
-	OldId = "oldid"
+	NewID    = "newid"
+	OldID    = "oldid"
 	Passport = "passport"
 )
 
@@ -39,21 +39,21 @@ func NewViewModel() ViewModel {
 	model.Parts = nil
 
 	// prepare default card selection
-	model.CardOptions[0] = CardOption{"Neuer Personalausweis", "newid", false}
-	model.CardOptions[1] = CardOption{"Alter Personalausweis", "oldid", false}
-	model.CardOptions[2] = CardOption{"EU-Reisepass", "passport", false}
+	model.CardOptions[0] = CardOption{Name: "Neuer Personalausweis", Value: NewID, Selected: false}
+	model.CardOptions[1] = CardOption{Name: "Alter Personalausweis", Value: OldID, Selected: false}
+	model.CardOptions[2] = CardOption{Name: "EU-Reisepass", Value: Passport, Selected: false}
 
 	return model
 }
 
-func (vm *ViewModel) CalculateNewId() {
+func (vm *ViewModel) CalculateNewID() {
 	cardNumberBlock := "T220001293"
 
 	bdBlock := transformDate(vm.Birthday)
-	bdBlock = bdBlock + calculateChecksumOfBlock(bdBlock, false)
+	bdBlock += calculateChecksumOfBlock(bdBlock, false)
 
 	expBlock := transformDate(vm.Expiration)
-	expBlock = expBlock + calculateChecksumOfBlock(expBlock, false)
+	expBlock += calculateChecksumOfBlock(expBlock, false)
 
 	// overall checksum
 	checksum := calculateChecksumOfBlock(cardNumberBlock+bdBlock+expBlock, vm.Manipulation)
@@ -66,14 +66,14 @@ func (vm *ViewModel) CalculateNewId() {
 	vm.Parts = result
 }
 
-func (vm *ViewModel) CalculateOldId() {
+func (vm *ViewModel) CalculateOldID() {
 	cardNumberBlock := "1220001297"
 
 	bdBlock := transformDate(vm.Birthday)
-	bdBlock = bdBlock + calculateChecksumOfBlock(bdBlock, false)
+	bdBlock += calculateChecksumOfBlock(bdBlock, false)
 
 	expBlock := transformDate(vm.Expiration)
-	expBlock = expBlock + calculateChecksumOfBlock(expBlock, false)
+	expBlock += calculateChecksumOfBlock(expBlock, false)
 
 	// overall checksum
 	checksum := calculateChecksumOfBlock(cardNumberBlock+bdBlock+expBlock, vm.Manipulation)
@@ -90,10 +90,10 @@ func (vm *ViewModel) CalculatePassport() {
 	cardNumberBlock := "C01X00T478"
 
 	bdBlock := transformDate(vm.Birthday)
-	bdBlock = bdBlock + calculateChecksumOfBlock(bdBlock, false)
+	bdBlock += calculateChecksumOfBlock(bdBlock, false)
 
 	expBlock := transformDate(vm.Expiration)
-	expBlock = expBlock + calculateChecksumOfBlock(expBlock, false)
+	expBlock += calculateChecksumOfBlock(expBlock, false)
 
 	// overall checksum
 	checksum := calculateChecksumOfBlock(cardNumberBlock+bdBlock+expBlock, vm.Manipulation)
@@ -109,13 +109,14 @@ func transformDate(input string) string {
 	outputLayout := "060102"
 
 	t, _ := time.Parse(inputLayout, input)
+
 	return t.Format(outputLayout)
 }
 
 func calculateChecksumOfBlock(block string, manipulate bool) string {
 	weights := NewWeightsGenerator()
+	sum := 0
 
-	var sum = 0
 	for _, char := range block {
 		no := transformToNumber(char)
 		w := weights.next()
@@ -123,7 +124,7 @@ func calculateChecksumOfBlock(block string, manipulate bool) string {
 	}
 
 	if manipulate {
-		sum += 1
+		sum++
 	}
 
 	return strconv.Itoa(sum % 10)
@@ -158,5 +159,6 @@ func (g *WeightsGenerator) next() int {
 	case 1:
 		g.state = 7
 	}
+
 	return g.state
 }

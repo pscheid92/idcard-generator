@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/pscheid92/idcard-generator/pkg/middleware"
-	"github.com/pscheid92/idcard-generator/pkg/models"
-	"github.com/pscheid92/idcard-generator/pkg/renderer"
+	"github.com/pscheid92/idcard-generator/internal/middleware"
+	"github.com/pscheid92/idcard-generator/internal/models"
+	"github.com/pscheid92/idcard-generator/internal/renderer"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )

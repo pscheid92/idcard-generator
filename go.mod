@@ -1,4 +1,4 @@
-module com.gitlab.pscheid92/idcardgenerator
+module github.com/pscheid92/idcard-generator
 
 go 1.15
 

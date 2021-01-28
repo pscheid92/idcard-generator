@@ -1,19 +1,29 @@
 package main
 
 import (
+	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/pscheid92/idcard-generator/internal/middleware"
+	"github.com/pscheid92/idcard-generator/internal/middlewares"
 	"github.com/pscheid92/idcard-generator/internal/models"
 	"github.com/pscheid92/idcard-generator/internal/renderer"
 )
 
 func main() {
+	secureMiddlewareConfig := middleware.SecureConfig{
+		XSSProtection:         "1; mode=block",
+		ContentTypeNosniff:    "nosniff",
+		XFrameOptions:         "SAMEORIGIN",
+		HSTSMaxAge:            315360000,
+		HSTSExcludeSubdomains: true,
+	}
+
 	e := echo.New()
 	e.HideBanner = true
 	e.Renderer = renderer.NewTemplateRenderer("templates/*")
-	e.Use(middleware.ForwardedPrefixMiddleware)
+	e.Use(middlewares.ForwardedPrefixMiddleware)
+	e.Use(middleware.SecureWithConfig(secureMiddlewareConfig))
 
 	// main page
 	e.GET("/", getMainPage)

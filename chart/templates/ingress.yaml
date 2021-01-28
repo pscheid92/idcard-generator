@@ -4,9 +4,6 @@ metadata:
   name: idcardgenerator
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/force-hsts: "true"
-    traefik.ingress.kubernetes.io/hsts-max-age: "315360000"
-    traefik.ingress.kubernetes.io/hsts-include-subdomains: "true"
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/custom-request-headers: "X-Forwarded-Prefix: /perso"
     traefik.ingress.kubernetes.io/frontend-entry-points: "http,https"

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/pscheid92/idcard-generator/internal/middlewares"
 	"github.com/pscheid92/idcard-generator/internal/models"
 	"github.com/pscheid92/idcard-generator/internal/renderer"
@@ -24,6 +24,7 @@ func main() {
 	e.Renderer = renderer.NewTemplateRenderer("templates/*")
 	e.Use(middlewares.ForwardedPrefixMiddleware)
 	e.Use(middleware.SecureWithConfig(secureMiddlewareConfig))
+	e.Use(middleware.Gzip())
 
 	// main page
 	e.GET("/", getMainPage)
